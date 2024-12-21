@@ -22,6 +22,7 @@ public class CheckoutSolution {
         price.put('C', 20);
         price.put('D', 15);
         price.put('E', 40);
+        price.put('F', 10);
 
         specialPrice.put('A', Map.of(3,130,5,200));
         specialPrice.put('B', Map.of(2,45));
@@ -43,6 +44,9 @@ public class CheckoutSolution {
             items.put('B', countB);
         }
 
+        int countF = items.getOrDefault('F', 0);
+        countF = countF - (countF/3);
+        items.put('F', countF);
 
         int total = 0;
         for(Character ch: items.keySet()) {
@@ -65,4 +69,3 @@ public class CheckoutSolution {
         return total;
     }
 }
-
