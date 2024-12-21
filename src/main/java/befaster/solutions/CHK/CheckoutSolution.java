@@ -114,6 +114,9 @@ public class CheckoutSolution {
 
         reduceItem(items, buyGetOffer);
         List<Character> characters = Arrays.asList('S', 'T', 'X', 'Y', 'Z');
+
+
+
         while (true) {
             int min3 = 0;
             for(Character ch: characters) {
@@ -161,3 +164,4 @@ public class CheckoutSolution {
         return total;
     }
 }
+
