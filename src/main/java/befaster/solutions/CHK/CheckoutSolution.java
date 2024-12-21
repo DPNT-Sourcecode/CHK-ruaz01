@@ -113,35 +113,54 @@ public class CheckoutSolution {
         int total = 0;
 
         reduceItem(items, buyGetOffer);
-        List<Character> characters = Arrays.asList('S', 'T', 'X', 'Y', 'Z');
+        List<Character> characters = Arrays.asList('X', 'S', 'T', 'Y', 'Z');
 
+        int min3 = 0;
+        for(Character ch: characters) {
+            min3 += items.getOrDefault(ch, 0);
+        }
+        int comboCount = min3/3;
+        int gap = min3%3;
 
-
-        while (true) {
-            int min3 = 0;
-            for(Character ch: characters) {
-                if(items.getOrDefault(ch, 0) > 0) {
-                    min3++;
-                }
-            }
-            if(min3 < 3) {
+        total += comboCount * 45;
+        for(Character ch: characters) {
+            int currentcount = items.getOrDefault(ch, 0);
+            if(currentcount >= gap) {
+                total += gap * price.get(ch);
                 break;
             } else {
-                total += 45;
-                int counter = 0;
-                for(Character ch: characters) {
-                    int tmp = items.getOrDefault(ch, 0);
-                    if(tmp > 0) {
-                        counter++;
-                        tmp--;
-                        items.put(ch, tmp);
-                    }
-                    if(counter == 3) {
-                        break;
-                    }
-                }
+                total += currentcount * price.get(ch);
+                gap -= currentcount;
+            }
+            if(gap < 1) {
+                break;
             }
         }
+//        while (true) {
+//            int min3 = 0;
+//            for(Character ch: characters) {
+//                if(items.getOrDefault(ch, 0) > 0) {
+//                    min3++;
+//                }
+//            }
+//            if(min3 < 3) {
+//                break;
+//            } else {
+//                total += 45;
+//                int counter = 0;
+//                for(Character ch: characters) {
+//                    int tmp = items.getOrDefault(ch, 0);
+//                    if(tmp > 0) {
+//                        counter++;
+//                        tmp--;
+//                        items.put(ch, tmp);
+//                    }
+//                    if(counter == 3) {
+//                        break;
+//                    }
+//                }
+//            }
+//        }
 
 
         for(Character ch: items.keySet()) {
@@ -164,4 +183,5 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
