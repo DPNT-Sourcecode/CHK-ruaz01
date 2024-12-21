@@ -136,6 +136,9 @@ public class CheckoutSolution {
                 break;
             }
         }
+        for(Character ch: characters) {
+            items.remove(ch);
+        }
 //        while (true) {
 //            int min3 = 0;
 //            for(Character ch: characters) {
@@ -183,5 +186,6 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
