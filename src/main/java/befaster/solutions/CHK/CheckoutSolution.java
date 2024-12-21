@@ -29,6 +29,14 @@ public class CheckoutSolution {
         return items;
     }
 
+    public Map<Character, Integer> combo(Map<Character, Integer> items) {
+        int total  = 0;
+
+
+
+        return items;
+    }
+
     public Integer checkout(String skus) {
         if(skus.trim().isEmpty()) {
             return 0;
@@ -49,7 +57,7 @@ public class CheckoutSolution {
         price.put('H', 10);
         price.put('I', 35);
         price.put('J', 60);
-        price.put('K', 80);
+        price.put('K', 70);
         price.put('L', 90);
         price.put('M', 15);
         price.put('N', 40);
@@ -57,19 +65,19 @@ public class CheckoutSolution {
         price.put('P', 50);
         price.put('Q', 30);
         price.put('R', 50);
-        price.put('S', 30);
+        price.put('S', 20);
         price.put('T', 20);
         price.put('U', 40);
         price.put('V', 50);
         price.put('W', 20);
-        price.put('X', 90);
-        price.put('Y', 10);
-        price.put('Z', 50);
+        price.put('X', 17);
+        price.put('Y', 20);
+        price.put('Z', 21);
 
         specialPrice.put('A', Map.of(3,130,5,200));
         specialPrice.put('B', Map.of(2,45));
         specialPrice.put('H', Map.of(5,45, 10, 80));
-        specialPrice.put('K', Map.of(2,150));
+        specialPrice.put('K', Map.of(2,120));
         specialPrice.put('P', Map.of(5,200));
         specialPrice.put('Q', Map.of(3,80));
         specialPrice.put('V', Map.of(2,90, 3, 130));
@@ -102,9 +110,37 @@ public class CheckoutSolution {
 //        countF = countF - (countF/3);
 //        items.put('F', countF);
 
-        reduceItem(items, buyGetOffer);
-
         int total = 0;
+
+        reduceItem(items, buyGetOffer);
+        List<Character> characters = Arrays.asList('S', 'T', 'X', 'Y', 'Z');
+        while (true) {
+            int min3 = 0;
+            for(Character ch: characters) {
+                if(items.getOrDefault(ch, 0) > 0) {
+                    min3++;
+                }
+            }
+            if(min3 < 3) {
+                break;
+            } else {
+                total += 45;
+                int counter = 0;
+                for(Character ch: characters) {
+                    int tmp = items.getOrDefault(ch, 0);
+                    if(tmp > 0) {
+                        counter++;
+                        tmp--;
+                        items.put(ch, tmp);
+                    }
+                    if(counter == 3) {
+                        break;
+                    }
+                }
+            }
+        }
+
+
         for(Character ch: items.keySet()) {
             int number = items.get(ch);
             if(specialPrice.containsKey(ch)) {
@@ -125,3 +161,4 @@ public class CheckoutSolution {
         return total;
     }
 }
+
